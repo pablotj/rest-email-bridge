@@ -1,0 +1,71 @@
+info:
+  app:
+    version: @project.version@
+spring:
+  application:
+    name: restemailbridge
+  web:
+    resources:
+      add-mappings: false
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.transaction.jta.platform: org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform
+      hibernate:
+        format_sql: true
+    show-sql: true
+
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+  forward-headers-strategy: framework
+---
+
+spring:
+  config:
+    activate:
+      on-profile: default
+
+  datasource:
+    url: jdbc:h2:file:./restemailbridge-db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:portfolio}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
