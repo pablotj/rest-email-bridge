@@ -1,0 +1,6 @@
+.idea
+*.toml
+*.db
+target
+
+Icon?
