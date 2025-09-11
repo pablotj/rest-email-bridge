@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication(scanBasePackages = "com.pablotj.restemailbridge")
-@EnableJpaRepositories(basePackages = {"com.pablotj.restemailbridge.infrastructure"})
-@EntityScan(basePackages = {"com.pablotj.restemailbridge.infrastructure"})
+@EnableJpaRepositories(basePackages = {"com.pablotj.restemailbridge"})
+@EntityScan(basePackages = {"com.pablotj.restemailbridge"})
 public class RestEmailBridgeApplication {
 
     public static void main(String[] args) {
