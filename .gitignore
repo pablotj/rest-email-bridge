@@ -2,5 +2,7 @@
 *.toml
 *.db
 target
+logs
+.env
 
 Icon?
