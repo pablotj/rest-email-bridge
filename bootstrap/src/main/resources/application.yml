@@ -10,7 +10,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate.transaction.jta.platform: org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform
       hibernate:
@@ -48,5 +48,4 @@ spring:
   jpa:
     properties:
       hibernate:
-        ddl-auto: update
         dialect: org.hibernate.dialect.PostgreSQLDialect
