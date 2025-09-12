@@ -32,6 +32,7 @@ server:
   servlet:
     context-path: /api
   forward-headers-strategy: framework
+
 ---
 
 spring:
@@ -40,32 +41,12 @@ spring:
       on-profile: default
 
   datasource:
-    url: jdbc:h2:file:./restemailbridge-db
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: prod
-
-  datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:portfolio}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:default_db}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
-
   jpa:
-    hibernate:
-      ddl-auto: update
+    properties:
+      hibernate:
+        ddl-auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
