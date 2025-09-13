@@ -3,6 +3,8 @@ services:
     build: .
     ports:
       - "8080:8080"
+      - "5005:5005"
+      - "8888:8888"
     depends_on:
       - db
     environment:
@@ -11,8 +13,13 @@ services:
       DB_PORT: ${DB_PORT}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
+      GMAIL_OAUTH_CLIENT_ID: ${GMAIL_OAUTH_CLIENT_ID}
+      GMAIL_OAUTH_CLIENT_SECRET: ${GMAIL_OAUTH_CLIENT_SECRET}
     networks:
       - network
+    volumes:
+      - ./tokens:/app/tokens
+      - ./logs:/app/logs
   db:
     image: postgres:15
     ports:

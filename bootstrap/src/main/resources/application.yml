@@ -33,6 +33,12 @@ server:
     context-path: /api
   forward-headers-strategy: framework
 
+gmail:
+  oauth2:
+    clientId: ${GMAIL_OAUTH_CLIENT_ID}
+    clientSecret: ${GMAIL_OAUTH_CLIENT_SECRET}
+    redirectUri: http://localhost:8888/Callback
+
 ---
 
 spring:

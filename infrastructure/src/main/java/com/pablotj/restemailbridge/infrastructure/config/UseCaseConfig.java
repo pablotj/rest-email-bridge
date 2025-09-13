@@ -1,4 +1,4 @@
-package com.pablotj.restemailbridge.infrastructure.config.spring;
+package com.pablotj.restemailbridge.infrastructure.config;
 
 import com.pablotj.restemailbridge.application.port.EmailConfigurationPort;
 import com.pablotj.restemailbridge.application.usecase.SendEmailUseCase;
