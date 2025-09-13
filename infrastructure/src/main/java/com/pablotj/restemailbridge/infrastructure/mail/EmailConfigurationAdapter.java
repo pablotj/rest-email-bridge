@@ -1,4 +1,4 @@
-package com.pablotj.restemailbridge.infrastructure.config;
+package com.pablotj.restemailbridge.infrastructure.mail;
 
 import com.pablotj.restemailbridge.application.port.EmailConfigurationPort;
 import org.springframework.stereotype.Component;
@@ -7,6 +7,6 @@ import org.springframework.stereotype.Component;
 public class EmailConfigurationAdapter implements EmailConfigurationPort {
     @Override
     public String getDefaultRecipient() {
-        return "1234@1234.com";
+        return "pablodelatorree@gmail.com";
     }
 }
