@@ -3,6 +3,7 @@
 *.db
 target
 logs
+tokens
 .env
 
 Icon?
