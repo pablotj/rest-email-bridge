@@ -1,25 +1,25 @@
 package com.pablotj.restemailbridge.application.usecase;
 
 import com.pablotj.restemailbridge.application.dto.EmailDTO;
-import com.pablotj.restemailbridge.application.port.EmailConfigurationPort;
+import com.pablotj.restemailbridge.application.port.in.EmailDefaultConfigPort;
+import com.pablotj.restemailbridge.application.port.out.EmailPort;
 import com.pablotj.restemailbridge.domain.model.Email;
 import com.pablotj.restemailbridge.domain.repository.EmailRepository;
-import com.pablotj.restemailbridge.domain.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Use case for sending emails.
  * <p>
- * Retrieves the default recipient from EmailConfigurationPort, sends the email using EmailService,
+ * Retrieves the default recipient from EmailDefaultConfigPort, sends the email using EmailPort,
  * and persists it via EmailRepository.
  */
 public class SendEmailUseCase {
 
     private static final Logger log = LoggerFactory.getLogger(SendEmailUseCase.class);
 
-    private final EmailConfigurationPort emailConfigurationPort;
-    private final EmailService emailService;
+    private final EmailDefaultConfigPort emailConfigurationPort;
+    private final EmailPort emailService;
     private final EmailRepository emailRepository;
 
     /**
@@ -29,8 +29,8 @@ public class SendEmailUseCase {
      * @param emailService           Service to send emails
      * @param emailRepository        Repository to persist emails
      */
-    public SendEmailUseCase(EmailConfigurationPort emailConfigurationPort,
-                            EmailService emailService,
+    public SendEmailUseCase(EmailDefaultConfigPort emailConfigurationPort,
+                            EmailPort emailService,
                             EmailRepository emailRepository) {
         this.emailConfigurationPort = emailConfigurationPort;
         this.emailService = emailService;
@@ -55,7 +55,7 @@ public class SendEmailUseCase {
                         .build()
         );
 
-        emailRepository.save(email); // Persist the sent email
+        emailRepository.save(email);
         log.info("Email successfully sent and persisted to repository for recipient {}", to);
     }
 }

@@ -13,7 +13,7 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
 import com.google.api.services.gmail.model.Message;
 import com.pablotj.restemailbridge.domain.model.Email;
-import com.pablotj.restemailbridge.domain.service.EmailService;
+import com.pablotj.restemailbridge.application.port.out.EmailPort;
 import com.pablotj.restemailbridge.infrastructure.exception.GmailConfigurationException;
 import com.pablotj.restemailbridge.infrastructure.exception.GmailInitializationException;
 import com.pablotj.restemailbridge.infrastructure.exception.GmailSendErrorException;
@@ -36,14 +36,14 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Gmail implementation of the EmailService using OAuth2 authentication.
+ * Gmail implementation of the EmailPort using OAuth2 authentication.
  * <p>
  * Handles sending emails via Gmail API and manages credentials stored in a local token folder.
  */
 @Component
-public class GmailOAuth2MailService implements EmailService {
+public class GmailOAuth2MailAdapter implements EmailPort {
 
-    private static final Logger log = LoggerFactory.getLogger(GmailOAuth2MailService.class);
+    private static final Logger log = LoggerFactory.getLogger(GmailOAuth2MailAdapter.class);
     private static final String APPLICATION_NAME = "MailServiceApi";
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
@@ -57,7 +57,7 @@ public class GmailOAuth2MailService implements EmailService {
      *
      * @param properties OAuth2 configuration for Gmail
      */
-    public GmailOAuth2MailService(GmailOAuth2Properties properties) {
+    public GmailOAuth2MailAdapter(GmailOAuth2Properties properties) {
         this.properties = properties;
     }
 
