@@ -19,15 +19,15 @@ public class MailJpa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(length = 100, nullable = false)
     private String sender;
 
-    @Column(nullable = false)
+    @Column(length = 100, nullable = false)
     private String recipient;
 
-    @Column(nullable = false)
+    @Column(length = 50, nullable = false)
     private String subjet;
 
-    @Column(nullable = false)
+    @Column(length = 40000, nullable = false)
     private String body;
 }

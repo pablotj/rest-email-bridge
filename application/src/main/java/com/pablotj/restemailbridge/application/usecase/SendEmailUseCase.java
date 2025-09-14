@@ -5,6 +5,7 @@ import com.pablotj.restemailbridge.application.port.in.EmailDefaultConfigPort;
 import com.pablotj.restemailbridge.application.port.out.EmailPort;
 import com.pablotj.restemailbridge.domain.model.Email;
 import com.pablotj.restemailbridge.domain.repository.EmailRepository;
+import com.pablotj.restemailbridge.domain.service.EmailValidatorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,20 +19,13 @@ public class SendEmailUseCase {
 
     private static final Logger log = LoggerFactory.getLogger(SendEmailUseCase.class);
 
+    private final EmailValidatorService emailValidatorService;
     private final EmailDefaultConfigPort emailConfigurationPort;
     private final EmailPort emailService;
     private final EmailRepository emailRepository;
 
-    /**
-     * Constructor injecting required ports.
-     *
-     * @param emailConfigurationPort Port to retrieve configuration
-     * @param emailService           Service to send emails
-     * @param emailRepository        Repository to persist emails
-     */
-    public SendEmailUseCase(EmailDefaultConfigPort emailConfigurationPort,
-                            EmailPort emailService,
-                            EmailRepository emailRepository) {
+    public SendEmailUseCase(EmailValidatorService emailValidatorService, EmailDefaultConfigPort emailConfigurationPort, EmailPort emailService, EmailRepository emailRepository) {
+        this.emailValidatorService = emailValidatorService;
         this.emailConfigurationPort = emailConfigurationPort;
         this.emailService = emailService;
         this.emailRepository = emailRepository;
@@ -44,16 +38,19 @@ public class SendEmailUseCase {
      */
     public void handle(EmailDTO emailDTO) {
         String to = emailConfigurationPort.getDefaultRecipient();
+
+        Email email = Email.builder()
+                .from(emailDTO.from())
+                .to(to)
+                .subject(emailDTO.subject())
+                .body(emailDTO.body())
+                .build();
+
+        emailValidatorService.validate(email);
+
         log.info("Sending email from {} to {}", emailDTO.from(), to);
 
-        Email email = emailService.sendEmail(
-                Email.builder()
-                        .from(emailDTO.from())
-                        .to(to)
-                        .subject(emailDTO.subject())
-                        .body(emailDTO.body())
-                        .build()
-        );
+        email = emailService.sendEmail(email);
 
         emailRepository.save(email);
         log.info("Email successfully sent and persisted to repository for recipient {}", to);
