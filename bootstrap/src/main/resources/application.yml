@@ -1,6 +1,9 @@
 info:
   app:
     version: @project.version@
+app:
+  encryption:
+    secret:  ${APP_ENCRYPTION_SECRET}
 spring:
   application:
     name: restemailbridge
@@ -26,6 +29,7 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui
+  show-actuator: true
 
 server:
   port: 8080
