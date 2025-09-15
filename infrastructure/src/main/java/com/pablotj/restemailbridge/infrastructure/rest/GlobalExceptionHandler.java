@@ -17,4 +17,10 @@ public class GlobalExceptionHandler {
                 errors.put(error.getField(), error.getDefaultMessage()));
         return ResponseEntity.badRequest().body(errors);
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException ex) {
+        Map<String, String> error = Map.of("error", ex.getMessage());
+        return ResponseEntity.unprocessableEntity().body(error); // 422
+    }
 }

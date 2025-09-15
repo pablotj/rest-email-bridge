@@ -1,6 +1,7 @@
 package com.pablotj.restemailbridge.infrastructure.persistence;
 
 import com.pablotj.restemailbridge.domain.model.EmailStatus;
+import com.pablotj.restemailbridge.infrastructure.encryption.EncryptionConverter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;

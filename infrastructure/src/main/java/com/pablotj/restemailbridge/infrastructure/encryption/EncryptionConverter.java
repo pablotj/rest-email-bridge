@@ -1,4 +1,4 @@
-package com.pablotj.restemailbridge.infrastructure.persistence;
+package com.pablotj.restemailbridge.infrastructure.encryption;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;

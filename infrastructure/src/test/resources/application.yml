@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: restemailbridge
+  datasource:
+    url: jdbc:h2:mem:restemailbridge;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+server:
+  port: 0
+  servlet:
+    context-path: /api
+
+app:
+  encryption:
+    secret: 0123456789ABCDEF0123456789ABCDEF
+
+gmail:
+  oauth2:
+    clientId: dummy
+    clientSecret: dummy
+    redirectUri: http://localhost:8888/Callback
