@@ -20,7 +20,8 @@ public class MailRepositoryAdapter implements EmailRepository {
         mailJpa.setRecipient(email.getTo());
         mailJpa.setSubjet(email.getSubject());
         mailJpa.setBody(email.getBody());
-
+        mailJpa.setStatus(email.getStatus());
+        mailJpa.setErrorDescription(email.getErrorDescription());
         springDataMailRepository.save(mailJpa);
 
         return email;
