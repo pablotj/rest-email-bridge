@@ -39,19 +39,19 @@ public class SendEmailUseCase {
     public void handle(EmailDTO emailDTO) {
         String to = emailConfigurationPort.getDefaultRecipient();
 
-        Email email = Email.builder()
-                .from(emailDTO.from())
-                .to(to)
-                .subject(emailDTO.subject())
-                .body(emailDTO.body())
-                .build();
+        Email email = Email.create(emailDTO.from(), to, emailDTO.subject(), emailDTO.body());
 
         emailValidatorService.validate(email);
 
         log.info("Sending email from {} to {}", emailDTO.from(), to);
 
-        email = emailService.sendEmail(email);
-
+        try {
+            email = emailService.sendEmail(email);
+            email.markAsSent();
+        } catch (Exception e) {
+            log.error("Error sending email", e);
+            email.markAsFailed(e.getMessage());
+        }
         emailRepository.save(email);
         log.info("Email successfully sent and persisted to repository for recipient {}", to);
     }
