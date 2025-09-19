@@ -5,6 +5,8 @@ info:
 app:
   encryption:
     secret:  ${APP_ENCRYPTION_SECRET}
+  cors:
+    allowed-origins: ${APP_ALLOWED_ORIGINS:http://localhost:8080}
 
 server:
   port: 8080
