@@ -11,6 +11,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class RestEmailBridgeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RestEmailBridgeApplication.class, args);
+        SpringApplication app = new SpringApplication(RestEmailBridgeApplication.class);
+        app.addInitializers(new EnvironmentValidatorInitializer());
+        app.run(args);
     }
 }
